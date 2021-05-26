@@ -1,0 +1,355 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wolfram Mathematica 虚拟全书 学习记录 一 | Gridea</title>
+<link rel="shortcut icon" href="https://ZMashiro.github.io/favicon.ico?v=1622025948449">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://ZMashiro.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Wolfram Mathematica 虚拟全书 学习记录 一 | Gridea - Atom Feed" href="https://ZMashiro.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="1 建立连续的运算
+1.1 使用之前的结果
+%
+%%
+%%...%(k times)
+%n
+
+
+1.2 定义变量
+x=value
+x=y=value
+x=. 
+
+
+1.3 符号的值
+wolfram作为符合运算系统，符合的运算是核心。
+当我们..." />
+    <meta name="keywords" content="Mathematica" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://ZMashiro.github.io">
+  <img class="avatar" src="https://ZMashiro.github.io/images/avatar.png?v=1622025948449" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Wolfram Mathematica 虚拟全书 学习记录 一
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-05-26
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://ZMashiro.github.io/tag/NEcSejo6T/" class="post-tag">
+                  # Mathematica
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://ZMashiro.github.io/post-images/wolfram-mathematica-xu-ni-quan-shu-xue-xi-ji-lu-yi.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="1-建立连续的运算">1 建立连续的运算</h2>
+<h3 id="11-使用之前的结果">1.1 使用之前的结果</h3>
+<pre><code>%
+%%
+%%...%(k times)
+%n
+</code></pre>
+<!-- %上一次结果 %%上两次结果 %n输出行Out[n]的结果 -->
+<h3 id="12-定义变量">1.2 定义变量</h3>
+<pre><code>x=value
+x=y=value
+x=. 
+</code></pre>
+<!-- 赋值 和 删除 -->
+<h3 id="13-符号的值">1.3 符号的值</h3>
+<p>wolfram作为符合运算系统，符合的运算是核心。<br>
+当我们想要对符号赋予某一个值的时候，采用 /. 的方式（如下）</p>
+<pre><code>expr/.x-&gt;value
+expr/.{x-&gt;value,y-&gt;value}
+</code></pre>
+<p>作为和一般编程语言不同的地方就在于此，符号计算。深刻理解传统赋值运算与符号替换运算的不同。</p>
+<table>
+<thead>
+<tr>
+<th>= 赋值运算</th>
+<th>./  替换运算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全局</td>
+<td>局部</td>
+</tr>
+</tbody>
+</table>
+<p>必须分清变量x是作为一个对象，还是作为一个符号。通常不建议用赋值运算=。</p>
+<h3 id="14-wolfram-语言中的四种括号">1.4 wolfram 语言中的四种括号</h3>
+<pre><code>()
+[]
+{}
+[[]]
+</code></pre>
+<!-- ()分组 []函数 {}列表 [[]]索引 -->
+<h3 id="15-运算顺序">1.5 运算顺序</h3>
+<p>;用来抑制输出</p>
+<pre><code>expr1;expr2;expr3
+expr1;expr2;
+</code></pre>
+<p>注意 % 仍然可以获取被抑制的输出</p>
+<h2 id="2-函数与程序">2 函数与程序</h2>
+<h3 id="21-定义函数">2.1 定义函数</h3>
+<p>函数是编程语言中的重要组成部分，分为函数名和参数两部分。在Wolfram中函数就像数学中使用的那样，以f[x_]:=的形式。注意参数首次使用要加_声名，等号要用:=。</p>
+<pre><code>f[x_]:=x^2+5
+?f
+Clear[f]
+</code></pre>
+<pre><code>hump[x_,xmax_]:=(x-xmax)^4
+7+hump[x,6]
+</code></pre>
+<h3 id="22-作为过程的函数">2.2 作为过程的函数</h3>
+<p>在 Wolfram 语言中定义的函数本质上就是过程（Procedure），执行所提供的命令. 过程可以包含多个步骤，并以分号分隔。</p>
+<p>实质上可以看成用函数代替for循环。</p>
+<p>从整个函数获得的结果只是过程中的最后一个表达式. 请注意，在这样定义过程时，必须给过程加上括号：</p>
+<pre><code>exprod[n_] := Expand[Product[x + i, {i, 1, n}]]
+cex[n_, i_] := (t = exprod[n]; Coefficient[t, x^i])
+</code></pre>
+<pre><code>Module[{a,b,...},proc]
+</code></pre>
+<p>上述例子中cex中的t，作为一个变量在运算结束之后，仍然存在。这种逃逸有一定危险的。应该局部化。</p>
+<pre><code>cex[n_,i_]:=Module[{t},t=exprod[n];Coefficient[t, x^i]]
+</code></pre>
+<p>结果t不会逃逸</p>
+<h3 id="23-操作选项">2.3 操作选项</h3>
+<pre><code>Option[function]
+Option[function,option]
+SetOptions[function,option-&gt;value,...]
+AbsoluteOption[function,option]
+</code></pre>
+<h3 id="24-重复操作">2.4 重复操作</h3>
+<pre><code>Do[expr,{i,i_max}]
+DO[expr,
+  {i,i_min,i_max,di}]
+Print[expr]
+Table[expr,{i,i_max}]
+</code></pre>
+<p>推荐使用Table函数，这样后继操作会非常方便。</p>
+<pre><code>Do[Print[i!],{i,10}]
+Table[i!,{i,5}]
+</code></pre>
+<h3 id="25-函数变换的规则">2.5 函数变换的规则</h3>
+<p>Wolfram中的变换规则是其语言的核心之一。</p>
+<p>这种变换非常广泛对于变量，函数，甚至一种模式。</p>
+<pre><code>x+9 /. x-&gt;6
+f[x]+13+f[y] /.f[x]-&gt;p
+1+f[x]+f[y] /.f[x_]-&gt;t^2
+f[a b]+f[c d] /. f[x_ y_]=f[x]+f[y]
+1 + x^2 + x^4 /. x^p_ -&gt;f[p]
+</code></pre>
+<p>f[t_] 的变换规则指定如何变换具有任何参数的函数 f .<br>
+请注意，如果 f[x] 的变换规则没有空白，则指定的仅是应如何变换字面上的表达式 f[x]，而不能说明 f[y] 应如何变换.</p>
+<h2 id="3-一些数学函数">3 一些数学函数</h2>
+<pre><code>Sqrt[x]
+Exp[x]
+Log[x]
+Log[b,x]
+Sin[x],Cos[x],Tan[x]
+ArcSin[x],ArcCos[x],ArcTan[x]
+n!
+Abs[x]
+Round[x]
+Mod[n,m]
+RandomReal[]
+Max[x,y,...],Min[x,y,...]
+FactorInteger[n]
+</code></pre>
+<pre><code>Pi
+E
+Degree
+I
+Infinity
+</code></pre>
+<pre><code>expr // N
+</code></pre>
+<h2 id="4-符号运算">4 符号运算</h2>
+<pre><code>D[f,x]
+Integrate[f,x]
+Sum[f,{i,i_min,i_max}]
+Solve[lhs==rhs,x]
+Series[f,{x,x0,order}]
+Limit[f,x-&gt;x0]
+Minimize[f,x]
+</code></pre>
+<p>注意许多情况没有解析解，必须用数值方法</p>
+<h2 id="5-数值运算">5 数值运算</h2>
+<pre><code>N[expr]
+NIntegrate[f,{x,x_min,x_max}]
+NSum[f,{x,x_min,Infinity}]
+FindRoot[lhs==rhs,{x,x_0}]
+NSolve[lhs==rhs,x]
+FindMinimum[f,{x,x0}]
+NMinimize[f,x]
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-%E5%BB%BA%E7%AB%8B%E8%BF%9E%E7%BB%AD%E7%9A%84%E8%BF%90%E7%AE%97">1 建立连续的运算</a>
+<ul>
+<li><a href="#11-%E4%BD%BF%E7%94%A8%E4%B9%8B%E5%89%8D%E7%9A%84%E7%BB%93%E6%9E%9C">1.1 使用之前的结果</a></li>
+<li><a href="#12-%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F">1.2 定义变量</a></li>
+<li><a href="#13-%E7%AC%A6%E5%8F%B7%E7%9A%84%E5%80%BC">1.3 符号的值</a></li>
+<li><a href="#14-wolfram-%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%8B%AC%E5%8F%B7">1.4 wolfram 语言中的四种括号</a></li>
+<li><a href="#15-%E8%BF%90%E7%AE%97%E9%A1%BA%E5%BA%8F">1.5 运算顺序</a></li>
+</ul>
+</li>
+<li><a href="#2-%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A8%8B%E5%BA%8F">2 函数与程序</a>
+<ul>
+<li><a href="#21-%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0">2.1 定义函数</a></li>
+<li><a href="#22-%E4%BD%9C%E4%B8%BA%E8%BF%87%E7%A8%8B%E7%9A%84%E5%87%BD%E6%95%B0">2.2 作为过程的函数</a></li>
+<li><a href="#23-%E6%93%8D%E4%BD%9C%E9%80%89%E9%A1%B9">2.3 操作选项</a></li>
+<li><a href="#24-%E9%87%8D%E5%A4%8D%E6%93%8D%E4%BD%9C">2.4 重复操作</a></li>
+<li><a href="#25-%E5%87%BD%E6%95%B0%E5%8F%98%E6%8D%A2%E7%9A%84%E8%A7%84%E5%88%99">2.5 函数变换的规则</a></li>
+</ul>
+</li>
+<li><a href="#3-%E4%B8%80%E4%BA%9B%E6%95%B0%E5%AD%A6%E5%87%BD%E6%95%B0">3 一些数学函数</a></li>
+<li><a href="#4-%E7%AC%A6%E5%8F%B7%E8%BF%90%E7%AE%97">4 符号运算</a></li>
+<li><a href="#5-%E6%95%B0%E5%80%BC%E8%BF%90%E7%AE%97">5 数值运算</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://ZMashiro.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://ZMashiro.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

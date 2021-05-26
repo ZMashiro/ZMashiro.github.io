@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://ZMashiro.github.io</id>
+    <title>Gridea</title>
+    <updated>2021-05-26T10:48:16.995Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://ZMashiro.github.io"/>
+    <link rel="self" href="https://ZMashiro.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://ZMashiro.github.io/images/avatar.png</logo>
+    <icon>https://ZMashiro.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[Wolfram Mathematica 虚拟全书 学习记录 一]]></title>
+        <id>https://ZMashiro.github.io/post/wolfram-mathematica-xu-ni-quan-shu-xue-xi-ji-lu-yi/</id>
+        <link href="https://ZMashiro.github.io/post/wolfram-mathematica-xu-ni-quan-shu-xue-xi-ji-lu-yi/">
+        </link>
+        <updated>2021-05-26T10:37:08.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1-建立连续的运算">1 建立连续的运算</h2>
+<h3 id="11-使用之前的结果">1.1 使用之前的结果</h3>
+<pre><code>%
+%%
+%%...%(k times)
+%n
+</code></pre>
+<!-- %上一次结果 %%上两次结果 %n输出行Out[n]的结果 -->
+<h3 id="12-定义变量">1.2 定义变量</h3>
+<pre><code>x=value
+x=y=value
+x=. 
+</code></pre>
+<!-- 赋值 和 删除 -->
+<h3 id="13-符号的值">1.3 符号的值</h3>
+<p>wolfram作为符合运算系统，符合的运算是核心。<br>
+当我们想要对符号赋予某一个值的时候，采用 /. 的方式（如下）</p>
+<pre><code>expr/.x-&gt;value
+expr/.{x-&gt;value,y-&gt;value}
+</code></pre>
+<p>作为和一般编程语言不同的地方就在于此，符号计算。深刻理解传统赋值运算与符号替换运算的不同。</p>
+<table>
+<thead>
+<tr>
+<th>= 赋值运算</th>
+<th>./  替换运算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全局</td>
+<td>局部</td>
+</tr>
+</tbody>
+</table>
+<p>必须分清变量x是作为一个对象，还是作为一个符号。通常不建议用赋值运算=。</p>
+<h3 id="14-wolfram-语言中的四种括号">1.4 wolfram 语言中的四种括号</h3>
+<pre><code>()
+[]
+{}
+[[]]
+</code></pre>
+<!-- ()分组 []函数 {}列表 [[]]索引 -->
+<h3 id="15-运算顺序">1.5 运算顺序</h3>
+<p>;用来抑制输出</p>
+<pre><code>expr1;expr2;expr3
+expr1;expr2;
+</code></pre>
+<p>注意 % 仍然可以获取被抑制的输出</p>
+<h2 id="2-函数与程序">2 函数与程序</h2>
+<h3 id="21-定义函数">2.1 定义函数</h3>
+<p>函数是编程语言中的重要组成部分，分为函数名和参数两部分。在Wolfram中函数就像数学中使用的那样，以f[x_]:=的形式。注意参数首次使用要加_声名，等号要用:=。</p>
+<pre><code>f[x_]:=x^2+5
+?f
+Clear[f]
+</code></pre>
+<pre><code>hump[x_,xmax_]:=(x-xmax)^4
+7+hump[x,6]
+</code></pre>
+<h3 id="22-作为过程的函数">2.2 作为过程的函数</h3>
+<p>在 Wolfram 语言中定义的函数本质上就是过程（Procedure），执行所提供的命令. 过程可以包含多个步骤，并以分号分隔。</p>
+<p>实质上可以看成用函数代替for循环。</p>
+<p>从整个函数获得的结果只是过程中的最后一个表达式. 请注意，在这样定义过程时，必须给过程加上括号：</p>
+<pre><code>exprod[n_] := Expand[Product[x + i, {i, 1, n}]]
+cex[n_, i_] := (t = exprod[n]; Coefficient[t, x^i])
+</code></pre>
+<pre><code>Module[{a,b,...},proc]
+</code></pre>
+<p>上述例子中cex中的t，作为一个变量在运算结束之后，仍然存在。这种逃逸有一定危险的。应该局部化。</p>
+<pre><code>cex[n_,i_]:=Module[{t},t=exprod[n];Coefficient[t, x^i]]
+</code></pre>
+<p>结果t不会逃逸</p>
+<h3 id="23-操作选项">2.3 操作选项</h3>
+<pre><code>Option[function]
+Option[function,option]
+SetOptions[function,option-&gt;value,...]
+AbsoluteOption[function,option]
+</code></pre>
+<h3 id="24-重复操作">2.4 重复操作</h3>
+<pre><code>Do[expr,{i,i_max}]
+DO[expr,
+  {i,i_min,i_max,di}]
+Print[expr]
+Table[expr,{i,i_max}]
+</code></pre>
+<p>推荐使用Table函数，这样后继操作会非常方便。</p>
+<pre><code>Do[Print[i!],{i,10}]
+Table[i!,{i,5}]
+</code></pre>
+<h3 id="25-函数变换的规则">2.5 函数变换的规则</h3>
+<p>Wolfram中的变换规则是其语言的核心之一。</p>
+<p>这种变换非常广泛对于变量，函数，甚至一种模式。</p>
+<pre><code>x+9 /. x-&gt;6
+f[x]+13+f[y] /.f[x]-&gt;p
+1+f[x]+f[y] /.f[x_]-&gt;t^2
+f[a b]+f[c d] /. f[x_ y_]=f[x]+f[y]
+1 + x^2 + x^4 /. x^p_ -&gt;f[p]
+</code></pre>
+<p>f[t_] 的变换规则指定如何变换具有任何参数的函数 f .<br>
+请注意，如果 f[x] 的变换规则没有空白，则指定的仅是应如何变换字面上的表达式 f[x]，而不能说明 f[y] 应如何变换.</p>
+<h2 id="3-一些数学函数">3 一些数学函数</h2>
+<pre><code>Sqrt[x]
+Exp[x]
+Log[x]
+Log[b,x]
+Sin[x],Cos[x],Tan[x]
+ArcSin[x],ArcCos[x],ArcTan[x]
+n!
+Abs[x]
+Round[x]
+Mod[n,m]
+RandomReal[]
+Max[x,y,...],Min[x,y,...]
+FactorInteger[n]
+</code></pre>
+<pre><code>Pi
+E
+Degree
+I
+Infinity
+</code></pre>
+<pre><code>expr // N
+</code></pre>
+<h2 id="4-符号运算">4 符号运算</h2>
+<pre><code>D[f,x]
+Integrate[f,x]
+Sum[f,{i,i_min,i_max}]
+Solve[lhs==rhs,x]
+Series[f,{x,x0,order}]
+Limit[f,x-&gt;x0]
+Minimize[f,x]
+</code></pre>
+<p>注意许多情况没有解析解，必须用数值方法</p>
+<h2 id="5-数值运算">5 数值运算</h2>
+<pre><code>N[expr]
+NIntegrate[f,{x,x_min,x_max}]
+NSum[f,{x,x_min,Infinity}]
+FindRoot[lhs==rhs,{x,x_0}]
+NSolve[lhs==rhs,x]
+FindMinimum[f,{x,x0}]
+NMinimize[f,x]
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://ZMashiro.github.io/post/hello-gridea/</id>
+        <link href="https://ZMashiro.github.io/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="http://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
