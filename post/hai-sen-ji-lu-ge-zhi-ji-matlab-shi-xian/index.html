@@ -2,24 +2,21 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>关于 | Gridea</title>
+<title>海森机率格纸及Matlab实现 | Gridea</title>
 <link rel="shortcut icon" href="https://ZMashiro.github.io/favicon.ico?v=1625145509841">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://ZMashiro.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="关于 | Gridea - Atom Feed" href="https://ZMashiro.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="海森机率格纸及Matlab实现 | Gridea - Atom Feed" href="https://ZMashiro.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="
+    <meta name="description" content="海森机率格纸与普通坐标纸不一样的地方在于，横坐标即频率值与标准正态分布分位数有关。且规定海森机率格纸在P=0.01%时的横坐标值为零。
+下图即为一个海森机率格纸与普通坐标的示例，注意它们横坐标的不同。
 
-欢迎来到我的小站呀，很高兴遇见你！🤝
 
-🏠 关于本站
-👨‍💻 博主是谁
-⛹ 兴趣爱好
-📬 联系我呀
-..." />
+Matlab实现代码
+%fx Q分..." />
     <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -82,11 +79,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              关于
+              海森机率格纸及Matlab实现
             </h2>
             <div class="post-info">
               <span>
-                2019-01-25
+                2021-07-01
               </span>
               <span>
                 1 min read
@@ -96,28 +93,19 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <!-- more -->
-<blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+                <p>海森机率格纸与普通坐标纸不一样的地方在于，横坐标即频率值与标准正态分布分位数有关。且规定海森机率格纸在P=0.01%时的横坐标值为零。<br>
+下图即为一个海森机率格纸与普通坐标的示例，注意它们横坐标的不同。<br>
+<img src="https://ZMashiro.github.io/post-images/1625145139465.jpg" alt="" loading="lazy"><br>
+<img src="https://ZMashiro.github.io/post-images/1625145257959.jpg" alt="" loading="lazy"><br>
+Matlab实现代码</p>
+<pre><code>%fx Q分别为原来的横纵坐标
+plot( -norminv(0.01)+norminv([fx(1:end)]),[Q(1:end)],'k-','LineWidth',1.5);
+</code></pre>
+<p>注意normin()可能返回Inf要及时处理</p>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -126,9 +114,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://ZMashiro.github.io/post/hello-gridea/">
+            <a href="https://ZMashiro.github.io/post/word-shi-yong-ji-qiao-zhi-gong-shi-bian-hao/">
               <h3 class="post-title">
-                Hello Gridea
+                Word使用技巧之公式编号
               </h3>
             </a>
           </div>

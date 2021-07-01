@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ZMashiro.github.io</id>
     <title>Gridea</title>
-    <updated>2021-05-27T15:25:15.291Z</updated>
+    <updated>2021-07-01T13:18:34.856Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ZMashiro.github.io"/>
     <link rel="self" href="https://ZMashiro.github.io/atom.xml"/>
@@ -10,6 +10,23 @@
     <logo>https://ZMashiro.github.io/images/avatar.png</logo>
     <icon>https://ZMashiro.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[海森机率格纸及Matlab实现]]></title>
+        <id>https://ZMashiro.github.io/post/hai-sen-ji-lu-ge-zhi-ji-matlab-shi-xian/</id>
+        <link href="https://ZMashiro.github.io/post/hai-sen-ji-lu-ge-zhi-ji-matlab-shi-xian/">
+        </link>
+        <updated>2021-07-01T13:08:29.000Z</updated>
+        <content type="html"><![CDATA[<p>海森机率格纸与普通坐标纸不一样的地方在于，横坐标即频率值与标准正态分布分位数有关。且规定海森机率格纸在P=0.01%时的横坐标值为零。<br>
+下图即为一个海森机率格纸与普通坐标的示例，注意它们横坐标的不同。<br>
+<img src="https://ZMashiro.github.io/post-images/1625145139465.jpg" alt="" loading="lazy"><br>
+<img src="https://ZMashiro.github.io/post-images/1625145257959.jpg" alt="" loading="lazy"><br>
+Matlab实现代码</p>
+<pre><code>%fx Q分别为原来的横纵坐标
+plot( -norminv(0.01)+norminv([fx(1:end)]),[Q(1:end)],'k-','LineWidth',1.5);
+</code></pre>
+<p>注意normin()可能返回Inf要及时处理</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Word使用技巧之公式编号]]></title>
         <id>https://ZMashiro.github.io/post/word-shi-yong-ji-qiao-zhi-gong-shi-bian-hao/</id>
